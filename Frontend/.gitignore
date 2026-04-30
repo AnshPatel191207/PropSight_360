@@ -3,12 +3,9 @@ dist/
 .env
 #
 src/components/Commute
-src/components/Dashboard
 src/components/Forensics
 src/components/Neighborhood
 #
 src/pages/CommuteCheck.jsx
 src/pages/ForensicAudit.jsx
-src/pages/Dashboard.jsx
 src/pages/NeighborhoodIntelligence.jsx
-src/pages/Onboarding.jsx
