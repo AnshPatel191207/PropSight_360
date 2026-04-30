@@ -1,0 +1,141 @@
+@import "tailwindcss";
+
+@theme {
+  --color-on-primary-fixed-variant: #00513f;
+  --color-on-tertiary: #68000b;
+  --color-on-tertiary-fixed-variant: #930014;
+  --color-on-error-container: #ffdad6;
+  --color-error-container: #93000a;
+  --color-on-tertiary-container: #9b0016;
+  --color-surface: #0d1512;
+  --color-on-primary: #00382b;
+  --color-surface-variant: #2f3633;
+  --color-surface-dim: #0d1512;
+  --color-secondary-fixed-dim: #ffb955;
+  --color-tertiary: #ffcbc7;
+  --color-secondary-fixed: #ffddb4;
+  --color-on-secondary-fixed-variant: #633f00;
+  --color-secondary-container: #dc9100;
+  --color-surface-container-lowest: #08100d;
+  --color-on-primary-container: #005643;
+  --color-inverse-primary: #006b55;
+  --color-outline-variant: #3b4a44;
+  --color-inverse-surface: #dce4df;
+  --color-tertiary-container: #ffa39d;
+  --color-outline: #85948d;
+  --color-on-secondary: #452b00;
+  --color-primary-container: #00d4aa;
+  --color-error: #ffb4ab;
+  --color-surface-bright: #333b37;
+  --color-on-surface-variant: #bacac2;
+  --color-primary-fixed: #55fcd0;
+  --color-primary: #46f1c5;
+  --color-surface-container-high: #242c28;
+  --color-on-background: #dce4df;
+  --color-on-secondary-container: #4f3100;
+  --color-on-tertiary-fixed: #410004;
+  --color-inverse-on-surface: #2a322f;
+  --color-tertiary-fixed-dim: #ffb3ae;
+  --color-primary-fixed-dim: #28dfb5;
+  --color-surface-container-highest: #2f3633;
+  --color-on-secondary-fixed: #291800;
+  --color-on-error: #690005;
+  --color-surface-container: #19211e;
+  --color-on-primary-fixed: #002118;
+  --color-surface-tint: #28dfb5;
+  --color-surface-container-low: #161d1a;
+  --color-secondary: #ffb955;
+  --color-background: #0d1512;
+  --color-on-surface: #dce4df;
+  --color-tertiary-fixed: #ffdad7;
+
+  --radius-default: 0.125rem;
+  --radius-lg: 0.25rem;
+  --radius-xl: 0.5rem;
+  --radius-full: 0.75rem;
+
+  --font-label-caps: "Manrope";
+  --font-data-mono: "Space Grotesk";
+  --font-display-xl: "Sora";
+  --font-headline-lg: "Sora";
+  --font-body-md: "Manrope";
+}
+
+@layer base {
+  body {
+    @apply bg-background text-on-background font-body-md selection:bg-primary-container selection:text-on-primary;
+  }
+}
+
+.glass-panel {
+  background: rgba(22, 34, 45, 0.7);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.inner-highlight {
+  box-shadow: inset 0 1px 0 0 rgba(255, 255, 255, 0.05);
+}
+
+.radial-glow {
+  background: radial-gradient(circle at center, rgba(0, 212, 170, 0.15) 0%, rgba(15, 25, 35, 0) 70%);
+}
+
+.dashed-line {
+  background-image: url("data:image/svg+xml,%3csvg width='100%25' height='100%25' xmlns='http://www.w3.org/2000/svg'%3e%3crect width='100%25' height='100%25' fill='none' stroke='%2300D4AA40' stroke-width='2' stroke-dasharray='8%2c 12' stroke-dashoffset='0' stroke-linecap='square'/%3e%3c/svg%3e");
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  width: 3px;
+}
+.no-scrollbar::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.02);
+}
+.no-scrollbar::-webkit-scrollbar-thumb {
+  background: #46f1c5;
+  border-radius: 10px;
+}
+
+.ticker-content {
+  display: inline-block;
+  white-space: nowrap;
+  padding-right: 100%;
+  animation: ticker 32.5s linear infinite;
+}
+
+@keyframes ticker {
+  0% { transform: translate3d(0, 0, 0); }
+  100% { transform: translate3d(-100%, 0, 0); }
+}
+
+.glow-animate {
+  position: relative;
+}
+.glow-animate::after {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  padding: 1px;
+  background: linear-gradient(90deg, transparent, #46f1c5, transparent);
+  background-size: 200% 100%;
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask-composite: exclude;
+  animation: border-glow 3s linear infinite;
+}
+
+@keyframes border-glow {
+  0% { background-position: -200% center; }
+  100% { background-position: 200% center; }
+}
+
+.skeleton-shimmer {
+  background: linear-gradient(90deg, rgba(255,255,255,0.03) 25%, rgba(255,255,255,0.08) 50%, rgba(255,255,255,0.03) 75%);
+  background-size: 200% 100%;
+  animation: shimmer 2s infinite linear;
+}
+
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
