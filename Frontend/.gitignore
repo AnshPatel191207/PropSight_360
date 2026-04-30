@@ -1,0 +1,7 @@
+node_modules/
+dist/
+.env
+src/components/*
+src/pages/*
+!src/components/.gitkeep
+!src/pages/.gitkeep
