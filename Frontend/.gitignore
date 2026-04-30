@@ -3,7 +3,5 @@ dist/
 .env
 #
 src/components/Commute
-src/components/Forensics
 #
 src/pages/CommuteCheck.jsx
-src/pages/ForensicAudit.jsx
