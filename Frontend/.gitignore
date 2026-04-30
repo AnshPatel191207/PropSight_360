@@ -4,8 +4,6 @@ dist/
 #
 src/components/Commute
 src/components/Forensics
-src/components/Neighborhood
 #
 src/pages/CommuteCheck.jsx
 src/pages/ForensicAudit.jsx
-src/pages/NeighborhoodIntelligence.jsx
