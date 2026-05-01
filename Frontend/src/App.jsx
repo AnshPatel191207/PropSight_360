@@ -10,6 +10,7 @@ import NeighborhoodIntelligence from './pages/NeighborhoodIntelligence'
 import ForensicAudit from './pages/ForensicAudit'
 import AuditReport from './pages/AuditReport'
 import CommuteCheck from './pages/CommuteCheck'
+import ResetPassword from './pages/ResetPassword'
 
 function App() {
   return (
@@ -25,6 +26,7 @@ function App() {
       <Route path="/audit-report" element={<AuditReport />} />
       <Route path="/sample-report" element={<AuditReport isStandalone={true} />} />
       <Route path="/commute-check" element={<CommuteCheck />} />
+      <Route path="/reset-password/:token" element={<ResetPassword />} />
     </Routes>
   )
 }
