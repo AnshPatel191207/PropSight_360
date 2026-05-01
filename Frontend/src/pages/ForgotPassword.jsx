@@ -31,7 +31,7 @@ const ForgotPassword = () => {
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(0,212,170,0.1)_0%,rgba(13,21,18,0)_70%)] pointer-events-none"></div>
         <div className="w-full max-w-[480px] bg-white/5 backdrop-blur-xl border border-white/10 rounded-[16px] p-12 relative z-10">
           {!isSuccess ? (
-            <ForgotPasswordForm onSubmit={handleSubmit} />
+            <ForgotPasswordForm onEmailSent={() => setIsSuccess(true)} />
           ) : (
             <ResetSuccessMessage onBack={() => setIsSuccess(false)} />
           )}
