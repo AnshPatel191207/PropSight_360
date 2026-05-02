@@ -10,7 +10,8 @@
 <br/>
 
 [![Figma Design](https://img.shields.io/badge/Figma-View_Design-00D4AA?style=for-the-badge&logo=figma&logoColor=white)](https://www.figma.com/design/9shHlHtL2HR5PykqfvkThu/Untitled?node-id=0-1&t=phEgmRXcp0cM3YYp-1)
-[![Status](https://img.shields.io/badge/Status-Full_Stack-success?style=for-the-badge)]()
+[![Live Demo](https://img.shields.io/badge/Deployed_Link-Live-free?style=for-the-badge)](https://propsight360.netlify.app/)
+[![Live Demo](https://img.shields.io/badge/Backend_Link-Live-free?style=for-the-badge)](https://propsight-360.onrender.com/)
 [![Made for India](https://img.shields.io/badge/Made_for-India_🇮🇳-FF9933?style=for-the-badge)]()
 
 ---
