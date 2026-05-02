@@ -1,9 +1,29 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
+import { getProfile } from '../../api/auth'
 
 const DashboardLayout = ({ children }) => {
   const location = useLocation();
   const navigate = useNavigate();
+  const [user, setUser] = useState({ name: 'Loading...', profilePhoto: '' });
+
+  useEffect(() => {
+    const fetchProfile = async () => {
+      try {
+        const data = await getProfile();
+        if (data.success && data.user) {
+          setUser({
+            name: data.user.name || 'User',
+            profilePhoto: data.user.profilePhoto || ''
+          });
+        }
+      } catch (err) {
+        console.error('Session expired or unauthorized');
+        setUser({ name: 'Guest User', profilePhoto: '' });
+      }
+    };
+    fetchProfile();
+  }, []);
 
   const navItems = [
     { name: 'Intelligence', icon: 'analytics', path: '/dashboard' },
@@ -36,30 +56,32 @@ const DashboardLayout = ({ children }) => {
               <span className="material-symbols-outlined text-[18px]">{item.icon}</span> {item.name}
             </Link>
           ))}
-          
-          <button 
-            onClick={() => navigate('/')}
-            className="text-slate-500 hover:text-error py-2 px-3 mt-auto hover:bg-white/5 duration-200 flex items-center gap-3 font-mono text-xs tracking-tight uppercase transition-all active:scale-[0.98]"
-          >
-            <span className="material-symbols-outlined text-[18px]">logout</span> Logout
-          </button>
         </nav>
         
         <div className="mt-4 p-3 bg-primary-container/10 rounded-lg border border-primary-container/20">
           <div className="flex items-center gap-3 mb-3">
-            <div className="w-8 h-8 rounded-full bg-surface-variant overflow-hidden">
-              <img 
-                className="w-full h-full object-cover" 
-                src="https://lh3.googleusercontent.com/aida-public/AB6AXuAKOFo6mHewaUASEunHjpgMUUthQ0uUsardEZ1vCPjAw6Lz4NrZM3YRYrk5ePV1MqeWLYQwRCtk3uFS4o217jZL3-NiqCRqqLcik4c4sY-XHHtZmHZoN1IcmsO7fXVbtr49k-InhePuPJ5aQkSasOQBo8iUUSxSk_sVOYvZKSbv8eNx7UJZf_BVjqO6qTtS8nWBRVAjvtV62HwtxxgMCFfM44UWefkV8o9PP314svpGbHhS5Wc_EysBRe8uU551wcj0DPD2FJmHwVQ" 
-                alt="Profile"
-              />
+            <div className="w-8 h-8 rounded-full bg-surface-variant overflow-hidden flex items-center justify-center">
+              {user.profilePhoto ? (
+                <img 
+                  className="w-full h-full object-cover" 
+                  src={user.profilePhoto} 
+                  alt="Profile"
+                  referrerPolicy="no-referrer"
+                />
+              ) : (
+                <span className="material-symbols-outlined text-slate-400">account_circle</span>
+              )}
             </div>
             <div className="flex-1 overflow-hidden">
-              <p className="text-[11px] font-bold truncate">Aditya Sharma</p>
-              <p className="text-[9px] text-primary">Free Member</p>
+              <p className="text-[11px] font-bold truncate">{user.name}</p>
             </div>
           </div>
-          <button className="w-full py-2 bg-primary-container text-on-primary-container font-label-caps text-[10px] rounded hover:opacity-90 transition-opacity uppercase font-bold">Member Portal</button>
+          <button 
+            onClick={() => navigate('/')}
+            className="w-full py-2 bg-primary text-black font-label-caps text-[10px] rounded hover:brightness-110 transition-all uppercase font-bold"
+          >
+            Logout
+          </button>
         </div>
       </aside>
 
@@ -68,15 +90,25 @@ const DashboardLayout = ({ children }) => {
         {/* TopAppBar */}
         <header className="sticky top-0 w-full z-40 bg-[#0A0F14]/80 border-b border-white/10 backdrop-blur-md flex items-center justify-between px-8 py-3 h-[64px]">
           <div className="flex items-center gap-6 flex-1">
-            <div className="relative w-full max-w-md">
-              <span className="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-[18px]">search</span>
-              <input 
-                className="w-full bg-white/5 border border-white/10 rounded px-10 py-1.5 text-xs font-mono focus:outline-none focus:border-primary/50 text-on-surface" 
-                placeholder="Search Plot No, Khata ID, or Builder..." 
-                type="text"
-              />
-              <span className="absolute right-3 top-1/2 -translate-y-1/2 text-[10px] font-mono text-slate-500 bg-white/5 px-1 rounded border border-white/10">⌘K</span>
-            </div>
+            {location.pathname === '/commute-check' ? (
+              <nav className="flex items-center gap-2 font-mono text-[10px] tracking-widest text-slate-400 uppercase font-bold">
+                <span>Intelligence</span>
+                <span className="material-symbols-outlined text-[14px]">chevron_right</span>
+                <span>Forensics</span>
+                <span className="material-symbols-outlined text-[14px]">chevron_right</span>
+                <span className="text-primary">Commute Audit</span>
+              </nav>
+            ) : (
+              <div className="relative w-full max-w-md">
+                <span className="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-[18px]">search</span>
+                <input 
+                  className="w-full bg-white/5 border border-white/10 rounded px-10 py-1.5 text-xs font-mono focus:outline-none focus:border-primary/50 text-on-surface" 
+                  placeholder="Search Plot No, Khata ID, or Builder..." 
+                  type="text"
+                />
+                <span className="absolute right-3 top-1/2 -translate-y-1/2 text-[10px] font-mono text-slate-500 bg-white/5 px-1 rounded border border-white/10">⌘K</span>
+              </div>
+            )}
           </div>
           <div className="flex items-center gap-5">
             <div className="flex items-center gap-4 border-r border-white/10 pr-5">

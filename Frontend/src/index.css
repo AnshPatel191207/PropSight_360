@@ -88,12 +88,34 @@
 .no-scrollbar::-webkit-scrollbar {
   width: 3px;
 }
+
 .no-scrollbar::-webkit-scrollbar-track {
   background: rgba(255, 255, 255, 0.02);
 }
+
 .no-scrollbar::-webkit-scrollbar-thumb {
   background: #46f1c5;
   border-radius: 10px;
+}
+
+.custom-scrollbar::-webkit-scrollbar {
+  width: 4px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 10px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: #00D4AA;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 212, 170, 0.5);
+}
+
+.custom-scrollbar {
+  scrollbar-width: thin;
+  scrollbar-color: #00D4AA rgba(255, 255, 255, 0.05);
 }
 
 .ticker-content {
@@ -104,13 +126,19 @@
 }
 
 @keyframes ticker {
-  0% { transform: translate3d(0, 0, 0); }
-  100% { transform: translate3d(-100%, 0, 0); }
+  0% {
+    transform: translate3d(0, 0, 0);
+  }
+
+  100% {
+    transform: translate3d(-100%, 0, 0);
+  }
 }
 
 .glow-animate {
   position: relative;
 }
+
 .glow-animate::after {
   content: '';
   position: absolute;
@@ -125,17 +153,106 @@
 }
 
 @keyframes border-glow {
-  0% { background-position: -200% center; }
-  100% { background-position: 200% center; }
+  0% {
+    background-position: -200% center;
+  }
+
+  100% {
+    background-position: 200% center;
+  }
 }
 
 .skeleton-shimmer {
-  background: linear-gradient(90deg, rgba(255,255,255,0.03) 25%, rgba(255,255,255,0.08) 50%, rgba(255,255,255,0.03) 75%);
+  background: linear-gradient(90deg, rgba(255, 255, 255, 0.03) 25%, rgba(255, 255, 255, 0.08) 50%, rgba(255, 255, 255, 0.03) 75%);
   background-size: 200% 100%;
   animation: shimmer 2s infinite linear;
 }
 
 @keyframes shimmer {
-  0% { background-position: -200% 0; }
-  100% { background-position: 200% 0; }
+  0% {
+    background-position: -200% 0;
+  }
+
+  100% {
+    background-position: 200% 0;
+  }
 }
+
+/* Professional Print Styles for PDF Export */
+@media print {
+  @page {
+    size: A4;
+    margin: 1cm;
+  }
+
+  /* Force background colors and images */
+  * {
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+    color-adjust: exact !important;
+  }
+
+  /* Reset layout for multi-page flow */
+  html, body, #root, .flex.h-screen, main {
+    height: auto !important;
+    overflow: visible !important;
+    display: block !important;
+  }
+
+  aside, nav, header, .no-print, button, .material-symbols-outlined, .z-\[1000\], .leaflet-control-container {
+    display: none !important;
+  }
+  
+  .max-w-\[1440px\] {
+    max-width: 100% !important;
+    padding: 0 !important;
+  }
+
+  .lg\:col-span-3, .lg\:col-span-9 {
+    width: 100% !important;
+    grid-column: span 12 / span 12 !important;
+    display: block !important;
+  }
+
+  .grid-cols-12 {
+    display: block !important;
+  }
+
+  body {
+    background: #0d1512 !important;
+    color: white !important;
+  }
+
+  .glass-panel {
+    background: #19211e !important;
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+    color: white !important;
+    break-inside: avoid;
+    margin-bottom: 20px;
+  }
+
+  .text-white, .text-primary, .text-slate-500 {
+    color: inherit !important;
+  }
+
+  .bg-\[\#0A0F14\] {
+    background: #0A0F14 !important;
+  }
+
+  #map, .leaflet-container {
+    height: 450px !important;
+    width: 100% !important;
+    visibility: visible !important;
+    margin-bottom: 30px !important;
+    break-inside: avoid !important;
+  }
+  
+  input {
+    border: none !important;
+    background: transparent !important;
+    padding: 0 !important;
+    color: white !important;
+    font-weight: bold !important;
+  }
+}
+@media print { .grid-cols-1.md\:grid-cols-3 { display: grid !important; grid-template-columns: repeat(2, 1fr) !important; gap: 15px !important; width: 100% !important; } }

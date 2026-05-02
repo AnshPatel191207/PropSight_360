@@ -93,10 +93,15 @@ const getUserProfile = async (req, res) => {
 
   if (user) {
     res.json({
-      _id: user._id,
-      fullName: user.fullName,
-      email: user.email,
-      profileType: user.profileType,
+      success: true,
+      user: {
+        _id: user._id,
+        fullName: user.fullName,
+        name: user.fullName, // Added for compatibility
+        email: user.email,
+        profileType: user.profileType,
+        profilePhoto: user.profilePhoto || ''
+      }
     });
   } else {
     res.status(404);
