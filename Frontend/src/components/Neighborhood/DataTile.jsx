@@ -1,16 +1,72 @@
-import React from 'react'
+import React, { useMemo } from 'react'
 
-const DataTile = ({ title, value, sub, trend, color }) => (
-  <div className={`glass-panel p-4 border-l-4 ${color} flex flex-col justify-between rounded-lg`}>
-    <h3 className="font-label-caps text-[10px] text-slate-500 uppercase font-bold">{title}</h3>
-    <div className="py-2">
-      <p className="font-data-mono text-2xl text-on-surface">{value}</p>
-      <p className="text-[10px] text-slate-400 mt-0.5 uppercase font-bold">{sub} <span className="text-primary">{trend === 'up' ? '↑' : '↓'}</span></p>
+const DataTile = ({ title, value, sub, trend, color, score = 50 }) => {
+  const sparklinePath = useMemo(() => {
+    // Height normalization (Score 0-100 maps to Y 25-5)
+    // Higher score = lower Y (higher line in SVG)
+    const midY = 25 - (score / 100) * 15;
+    const points = [];
+    
+    // Generate 6 control points
+    for (let i = 0; i <= 5; i++) {
+      const x = i * 20;
+      // Much more aggressive jitter and trend
+      const jitter = (Math.sin(i * 1.5 + (score % 10)) * 8); 
+      const trendBias = trend === 'up' ? -(i * 3) : (i * 3);
+      
+      let y = midY + jitter + trendBias;
+      y = Math.max(4, Math.min(26, y)); // Stay within 30px viewBox
+      points.push({ x, y });
+    }
+
+    // Build SVG Path with Quadratic Curves for smoothness
+    let path = `M ${points[0].x} ${points[0].y}`;
+    for (let i = 0; i < points.length - 1; i++) {
+      const midX = (points[i].x + points[i + 1].x) / 2;
+      const midY = (points[i].y + points[i + 1].y) / 2;
+      path += ` Q ${points[i].x} ${points[i].y}, ${midX} ${midY}`;
+    }
+    path += ` T ${points[5].x} ${points[5].y}`;
+    
+    return path;
+  }, [score, trend]);
+
+  return (
+    <div className={`glass-panel p-4 border-l-2 ${color} flex flex-col justify-between rounded-lg min-h-[110px] bg-[#0A0F14]/40 group hover:bg-[#0A0F14]/60 transition-all`}>
+      <div>
+        <h3 className="font-mono text-[9px] text-slate-500 uppercase font-bold tracking-wider">{title}</h3>
+        <p className="font-data-mono text-2xl text-on-surface mt-1 font-bold">{value}</p>
+      </div>
+      
+      <div className="mt-auto">
+        <p className="text-[9px] text-slate-500 mt-2 uppercase font-bold tracking-tight">
+          {sub} <span className={trend === 'up' ? 'text-primary' : 'text-error'}>{trend === 'up' ? '↑' : '↓'}</span>
+        </p>
+        <div className="mt-2 h-6 w-full">
+          <svg className="w-full h-full overflow-visible" viewBox="0 0 100 30" preserveAspectRatio="none">
+            <path 
+              d={sparklinePath} 
+              fill="none" 
+              stroke={trend === 'up' ? '#00D4AA' : '#f87171'} 
+              strokeWidth="1.5"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              className="opacity-80 transition-all duration-1000"
+            ></path>
+            {/* Glow effect */}
+            <path 
+              d={sparklinePath} 
+              fill="none" 
+              stroke={trend === 'up' ? '#00D4AA' : '#f87171'} 
+              strokeWidth="4"
+              strokeLinecap="round"
+              className="opacity-10 blur-[4px]"
+            ></path>
+          </svg>
+        </div>
+      </div>
     </div>
-    <svg className="w-[80px] h-[20px]" viewBox="0 0 80 20">
-      <path d={trend === 'up' ? "M0 15 C 15 15, 25 5, 40 10 C 55 15, 65 5, 80 5" : "M0 5 C 10 5, 20 18, 40 10 C 60 2, 70 15, 80 15"} fill="none" stroke="#46f1c5" strokeWidth="2"></path>
-    </svg>
-  </div>
-)
+  )
+}
 
 export default DataTile

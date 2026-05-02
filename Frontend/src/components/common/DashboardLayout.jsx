@@ -7,6 +7,22 @@ const DashboardLayout = ({ children }) => {
   const navigate = useNavigate();
   const [user, setUser] = useState({ name: 'Loading...', profilePhoto: '' });
 
+  const navItems = [
+    { name: 'Intelligence', icon: 'analytics', path: '/dashboard', parent: 'Intelligence', label: 'Main Dashboard' },
+    { name: 'Market Map', icon: 'explore_nearby', path: '/neighborhood', parent: 'Intelligence', label: 'Market Map' },
+    { name: 'Forensics', icon: 'security', path: '/forensics', parent: 'Forensics', label: 'Summary' },
+    { name: 'Commute Check', icon: 'directions_car', path: '/commute-check', parent: 'Forensics', label: 'Commute Audit' },
+  ];
+
+  // Dynamically determine breadcrumb based on current path
+  const getBreadcrumb = () => {
+    const current = navItems.find(item => item.path === location.pathname);
+    if (!current) return { parent: 'PropSight 360', label: 'Dashboard' };
+    return current;
+  };
+
+  const breadcrumb = getBreadcrumb();
+
   useEffect(() => {
     const fetchProfile = async () => {
       try {
@@ -18,24 +34,16 @@ const DashboardLayout = ({ children }) => {
           });
         }
       } catch (err) {
-        console.error('Session expired or unauthorized');
         setUser({ name: 'Guest User', profilePhoto: '' });
       }
     };
     fetchProfile();
   }, []);
 
-  const navItems = [
-    { name: 'Intelligence', icon: 'analytics', path: '/dashboard' },
-    { name: 'Market Map', icon: 'explore_nearby', path: '/neighborhood' },
-    { name: 'Forensics', icon: 'security', path: '/forensics' },
-    { name: 'Commute Check', icon: 'directions_car', path: '/commute-check' },
-  ];
-
   return (
     <div className="flex h-screen bg-surface-dim text-on-surface font-body-md selection:bg-primary selection:text-on-primary overflow-hidden">
       {/* SideNavBar */}
-      <aside className="w-[220px] h-screen border-r border-white/5 bg-[#0A0F14] flex flex-col gap-2 p-4 z-50 shrink-0">
+      <aside className="w-[220px] h-screen border-r border-white/5 bg-[#0A0F14] flex flex-col gap-2 p-4 z-50 shrink-0 no-print">
         <div className="mb-8 px-3">
           <Link to="/">
             <h1 className="text-lg font-black tracking-tighter text-[#00D4AA]">PropSight 360</h1>
@@ -88,34 +96,15 @@ const DashboardLayout = ({ children }) => {
       {/* Main Content Wrapper */}
       <div className="flex-1 flex flex-col min-w-0">
         {/* TopAppBar */}
-        <header className="sticky top-0 w-full z-40 bg-[#0A0F14]/80 border-b border-white/10 backdrop-blur-md flex items-center justify-between px-8 py-3 h-[64px]">
+        <header className="sticky top-0 w-full z-40 bg-[#0A0F14]/80 border-b border-white/10 backdrop-blur-md flex items-center justify-between px-8 py-3 h-[64px] no-print">
           <div className="flex items-center gap-6 flex-1">
-            {location.pathname === '/commute-check' ? (
-              <nav className="flex items-center gap-2 font-mono text-[10px] tracking-widest text-slate-400 uppercase font-bold">
-                <span>Intelligence</span>
-                <span className="material-symbols-outlined text-[14px]">chevron_right</span>
-                <span>Forensics</span>
-                <span className="material-symbols-outlined text-[14px]">chevron_right</span>
-                <span className="text-primary">Commute Audit</span>
-              </nav>
-            ) : (
-              <div className="relative w-full max-w-md">
-                <span className="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-[18px]">search</span>
-                <input 
-                  className="w-full bg-white/5 border border-white/10 rounded px-10 py-1.5 text-xs font-mono focus:outline-none focus:border-primary/50 text-on-surface" 
-                  placeholder="Search Plot No, Khata ID, or Builder..." 
-                  type="text"
-                />
-                <span className="absolute right-3 top-1/2 -translate-y-1/2 text-[10px] font-mono text-slate-500 bg-white/5 px-1 rounded border border-white/10">⌘K</span>
-              </div>
-            )}
+            <nav className="flex items-center gap-2 font-mono text-[10px] tracking-widest text-slate-400 uppercase font-bold">
+              <span>{breadcrumb.parent}</span>
+              <span className="material-symbols-outlined text-[14px]">chevron_right</span>
+              <span className="text-primary">{breadcrumb.label}</span>
+            </nav>
           </div>
           <div className="flex items-center gap-5">
-            <div className="flex items-center gap-4 border-r border-white/10 pr-5">
-              <button className="text-slate-400 hover:text-[#00D4AA] transition-colors cursor-pointer active:opacity-70"><span className="material-symbols-outlined">notifications_active</span></button>
-              <button className="text-slate-400 hover:text-[#00D4AA] transition-colors cursor-pointer active:opacity-70"><span className="material-symbols-outlined">account_balance_wallet</span></button>
-              <button className="text-slate-400 hover:text-[#00D4AA] transition-colors cursor-pointer active:opacity-70"><span className="material-symbols-outlined">history</span></button>
-            </div>
             <div className="flex items-center gap-2">
               <span className="material-symbols-outlined text-primary text-[20px]">location_on</span>
               <span className="font-mono text-xs tracking-widest uppercase">Ahmedabad, GJ</span>
@@ -124,7 +113,7 @@ const DashboardLayout = ({ children }) => {
         </header>
 
         {/* Scrollable Stage */}
-        <main className="flex-1 overflow-y-auto no-scrollbar">
+        <main className="flex-1 overflow-y-auto no-scrollbar bg-[#05080A]">
           {children}
         </main>
       </div>

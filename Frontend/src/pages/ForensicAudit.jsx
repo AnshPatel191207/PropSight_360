@@ -11,16 +11,7 @@ import VerifiedListings from '../components/Forensics/VerifiedListings'
 const ForensicAudit = () => {
   return (
     <DashboardLayout>
-      <div className="p-8">
-        {/* Breadcrumb */}
-        <div className="flex items-center gap-2 text-[10px] font-mono uppercase tracking-widest text-slate-500 mb-4">
-          <span>Intelligence</span>
-          <span className="material-symbols-outlined text-[12px]">chevron_right</span>
-          <span>Forensics</span>
-          <span className="material-symbols-outlined text-[12px]">chevron_right</span>
-          <span className="text-primary">Listing #PS-99821</span>
-        </div>
-
+      <div className="p-8 pt-4">
         {/* Header Section */}
         <ForensicHeader />
 
