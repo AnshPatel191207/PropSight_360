@@ -33,6 +33,7 @@ app.use(cookieParser());
 
 // Routes
 app.use('/api/auth', require('./routes/authRoutes'));
+app.use('/api/commute', require('./routes/commuteRoutes'));
 
 app.get('/', (req, res) => {
   res.send('API is running...');

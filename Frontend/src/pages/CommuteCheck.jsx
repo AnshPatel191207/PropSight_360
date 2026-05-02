@@ -1,39 +1,56 @@
-import React from 'react'
+import React, { useState } from 'react'
 import DashboardLayout from '../components/common/DashboardLayout'
 import CommuteHeader from '../components/Commute/CommuteHeader'
 import CommuteControls from '../components/Commute/CommuteControls'
 import LegBreakdown from '../components/Commute/LegBreakdown'
 import CommuteMap from '../components/Commute/CommuteMap'
 import AuditCardGrid from '../components/Commute/AuditCardGrid'
+import { generateCommuteAudit } from '../api/commute'
 
 const CommuteCheck = () => {
+  const [auditData, setAuditData] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
+
+  const handleRunAudit = async (params) => {
+    setLoading(true);
+    setError(null);
+    try {
+      const result = await generateCommuteAudit(params);
+      setAuditData(result.data);
+    } catch (err) {
+      setError(err.response?.data?.message || 'Failed to generate audit. Please try again.');
+      console.error(err);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
     <DashboardLayout>
       <div className="max-w-[1440px] mx-auto px-8 pb-12 pt-6">
-        {/* Breadcrumb */}
-        <nav className="flex items-center gap-2 mb-6 font-mono text-[10px] tracking-wider text-slate-500 uppercase font-bold">
-          <span>Intelligence</span>
-          <span className="material-symbols-outlined text-[12px]">chevron_right</span>
-          <span>Forensics</span>
-          <span className="material-symbols-outlined text-[12px]">chevron_right</span>
-          <span className="text-primary">Commute Audit</span>
-        </nav>
-
         {/* Header */}
-        <CommuteHeader />
+        <CommuteHeader auditData={auditData} />
+
+        {error && (
+          <div className="mb-6 p-4 bg-error/20 border border-error text-error rounded font-mono text-xs uppercase font-bold flex items-center gap-2">
+            <span className="material-symbols-outlined">error</span>
+            {error}
+          </div>
+        )}
 
         {/* Main Dashboard Grid */}
         <div className="grid grid-cols-12 gap-6">
           {/* Left Panel: Input & Controls */}
           <div className="col-span-12 lg:col-span-3 space-y-6">
-            <CommuteControls />
-            <LegBreakdown />
+            <CommuteControls onRunAudit={handleRunAudit} loading={loading} />
+            <LegBreakdown segments={auditData?.segmentBreakdown} />
           </div>
 
           {/* Center Panel: Map & Visualization */}
           <div className="col-span-12 lg:col-span-9 flex flex-col gap-6">
-            <CommuteMap />
-            <AuditCardGrid />
+            <CommuteMap polyline={auditData?.routePolyline} />
+            <AuditCardGrid auditData={auditData} />
           </div>
         </div>
       </div>

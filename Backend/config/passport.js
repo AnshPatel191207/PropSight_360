@@ -14,6 +14,7 @@ module.exports = function (passport) {
           googleId: profile.id,
           fullName: profile.displayName,
           email: profile.emails[0].value,
+          profilePhoto: profile.photos[0]?.value || '',
           isVerified: true,
         };
 
@@ -21,6 +22,11 @@ module.exports = function (passport) {
           let user = await User.findOne({ googleId: profile.id });
 
           if (user) {
+            // Update photo if changed
+            if (profile.photos && profile.photos[0] && user.profilePhoto !== profile.photos[0].value) {
+              user.profilePhoto = profile.photos[0].value;
+              await user.save();
+            }
             done(null, user);
           } else {
             user = await User.create(newUser);
