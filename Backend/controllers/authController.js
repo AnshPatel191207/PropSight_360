@@ -25,7 +25,7 @@ const registerUser = async (req, res) => {
   });
 
   if (user) {
-    generateToken(res, user._id);
+    const token = generateToken(res, user._id);
 
     res.status(201).json({
       _id: user._id,
@@ -33,6 +33,7 @@ const registerUser = async (req, res) => {
       email: user.email,
       phone: user.phone,
       profileType: user.profileType,
+      token,
     });
   } else {
     res.status(400);
@@ -60,13 +61,14 @@ const authUser = async (req, res) => {
   }
 
   if (await user.matchPassword(password)) {
-    generateToken(res, user._id);
+    const token = generateToken(res, user._id);
 
     res.json({
       _id: user._id,
       fullName: user.fullName,
       email: user.email,
       profileType: user.profileType,
+      token,
     });
   } else {
     res.status(401);
@@ -82,7 +84,7 @@ const logoutUser = (req, res) => {
     httpOnly: true,
     expires: new Date(0),
     secure: process.env.NODE_ENV !== 'development',
-    sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'strict',
+    sameSite: process.env.NODE_ENV !== 'development' ? 'none' : 'strict',
   });
   res.status(200).json({ message: 'Logged out successfully' });
 };

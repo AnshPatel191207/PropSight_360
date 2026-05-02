@@ -23,16 +23,48 @@ module.exports = function (passport) {
         };
 
         try {
-          let user = await User.findOne({ googleId: profile.id });
+          // Check if user already exists by googleId OR email
+          let user = await User.findOne({ 
+            $or: [
+              { googleId: profile.id },
+              { email: profile.emails[0].value }
+            ]
+          });
 
           if (user) {
-            // Update photo if changed
-            if (profile.photos && profile.photos[0] && user.profilePhoto !== profile.photos[0].value) {
-              user.profilePhoto = profile.photos[0].value;
+            // Update googleId if not set (linking accounts)
+            let isModified = false;
+            if (!user.googleId) {
+              user.googleId = profile.id;
+              isModified = true;
+            }
+
+            // Sync photo if missing or changed
+            const newPhoto = profile.photos && profile.photos[0] ? profile.photos[0].value : '';
+            if (newPhoto && user.profilePhoto !== newPhoto) {
+              user.profilePhoto = newPhoto;
+              isModified = true;
+            }
+
+            // Sync name if different
+            if (profile.displayName && user.fullName !== profile.displayName) {
+              user.fullName = profile.displayName;
+              isModified = true;
+            }
+
+            // Mark as verified if logging in via Google
+            if (!user.isVerified) {
+              user.isVerified = true;
+              isModified = true;
+            }
+
+            if (isModified) {
               await user.save();
             }
+            
             done(null, user);
           } else {
+            // Create a completely new user
             user = await User.create(newUser);
             done(null, user);
           }
