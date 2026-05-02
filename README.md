@@ -76,20 +76,36 @@ When a user opens PropSight 360, they should feel:
 
 ## 📱 Product Screens
 
-### Onboarding Flow
+### 🏠 Landing Page
+![Landing Page](Frontend/public/screenshots/Landing_Page.png)
+> *"Don't buy a home until you've seen the real data."* — The public-facing page that introduces PropSight 360's forensic intelligence capabilities.
 
-| Step 1 — Welcome | Step 2 — User Persona | Step 3 — Locality Selection |
-|---|---|---|
-| Introduction with live system status | Personalise for Homebuyer / Investor / Tenant / Resident | Choose target localities for intelligence tracking |
+---
 
-### Core Product
+### 🔐 Authentication Flow
 
-| Screen | Description |
-|---|---|
-| **Dashboard / Intelligence Hub** | Unified view with live feed, market pulse, and property intelligence |
-| **Neighbourhood Quality** | 8-metric locality report with interactive map layers |
-| **Forensic Commute Audit** | Listed vs reality commute with bottleneck analysis |
-| **Verified Audit Report** | Printable/shareable PDF-style forensic report |
+| Sign In | Sign Up | Forgot Password |
+|---------|---------|-----------------|
+| ![Sign In](Frontend/public/screenshots/Sign_In_Page.png) | ![Sign Up](Frontend/public/screenshots/Sign_Up_Page.png) | ![Forgot Password](Frontend/public/screenshots/Forgot_Password_Page.png) |
+| Split-panel login with Google SSO and email login | Profile-type selection (Homebuyer / Tenant / Investor) with password strength indicator | Secure reset link delivery within 2 minutes |
+
+---
+
+### 📊 Dashboard — Intelligence Hub
+![Dashboard](Frontend/public/screenshots/Dashboard_Page.png)
+> Unified entry point showing the **Neighbourhood Report** and **Avg. Commute Bias (3.4×)** cards, letting users jump straight into intelligence or commute auditing.
+
+---
+
+### 🗺️ Neighbourhood Quality
+![Neighbourhood Quality](Frontend/public/screenshots/Neighborhood_Quality_Checking_Page.png)
+> 8-metric locality scorecard (School Quality, AQI, Water Supply, Power Stability, Crime Rate, Future Infra, Vastu & Orient, Flood Risk) with resident sentiment analysis and interactive map layers.
+
+---
+
+### 🚗 Forensic Commute Audit
+![Commute Lies Detection](Frontend/public/screenshots/Commute_Lies_Detection_Page.png)
+> Side-by-side **Listed vs Reality** commute comparison with real-time route mapping, bottleneck detection, best commute time windows, safety index, and monsoon impact scoring.
 
 ---
 
