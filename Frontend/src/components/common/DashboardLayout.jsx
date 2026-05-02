@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
-import { getProfile } from '../../api/auth'
+import { getProfile, logout } from '../../api/auth'
 
 const DashboardLayout = ({ children }) => {
   const location = useLocation();
@@ -22,7 +22,26 @@ const DashboardLayout = ({ children }) => {
 
   const breadcrumb = getBreadcrumb();
 
+  const handleLogout = async () => {
+    try {
+      await logout();
+    } catch (e) {
+      console.error(e);
+    }
+    localStorage.removeItem('token');
+    navigate('/');
+  };
+
   useEffect(() => {
+    // Check for token in URL (from Google Auth redirect)
+    const queryParams = new URLSearchParams(location.search);
+    const token = queryParams.get('token');
+    if (token) {
+      localStorage.setItem('token', token);
+      // Clean up URL
+      navigate(location.pathname, { replace: true });
+    }
+
     const fetchProfile = async () => {
       try {
         const data = await getProfile();
@@ -84,7 +103,7 @@ const DashboardLayout = ({ children }) => {
             </div>
           </div>
           <button 
-            onClick={() => navigate('/')}
+            onClick={handleLogout}
             className="w-full py-2 bg-primary text-black font-label-caps text-[10px] rounded hover:brightness-110 transition-all uppercase font-bold"
           >
             Logout

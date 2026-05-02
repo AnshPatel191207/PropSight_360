@@ -209,8 +209,8 @@ const googleCallback = (req, res, next) => {
     if (err) return next(err);
     if (!user) return res.redirect(`${frontendUrl}/login?error=auth_failed`);
     
-    generateToken(res, user._id);
-    res.redirect(`${frontendUrl}/dashboard`);
+    const token = generateToken(res, user._id);
+    res.redirect(`${frontendUrl}/dashboard?token=${token}`);
   })(req, res, next);
 };
 
