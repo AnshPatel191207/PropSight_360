@@ -9,14 +9,7 @@ const Dashboard = () => {
   return (
     <DashboardLayout>
       <div className="p-6">
-        <div className="max-w-[1600px] mx-auto grid grid-cols-12 gap-6">
-          {/* Breadcrumb */}
-          <div className="col-span-12 mb-2 flex items-center gap-2 text-[10px] font-mono tracking-wider">
-            <span className="text-slate-500 uppercase">Intelligence</span>
-            <span className="material-symbols-outlined text-[12px] text-slate-600">chevron_right</span>
-            <span className="text-primary uppercase">Hub</span>
-          </div>
-
+        <div className="max-w-[1600px] mx-auto grid grid-cols-12 gap-6 pt-4">
           {/* Hero Banner / Ticker */}
           <LiveFeedTicker />
 

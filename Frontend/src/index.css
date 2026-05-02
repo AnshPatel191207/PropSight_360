@@ -239,7 +239,7 @@
     background: #0A0F14 !important;
   }
 
-  #map, .leaflet-container {
+  #map, .leaflet-container, .maplibregl-map, .maplibregl-canvas, canvas {
     height: 450px !important;
     width: 100% !important;
     visibility: visible !important;

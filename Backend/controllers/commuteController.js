@@ -6,7 +6,7 @@ const commuteService = require('../services/commuteService');
  * @access  Private
  */
 const getCommuteAudit = async (req, res) => {
-  const { origin, destination, listedTime } = req.body;
+  const { origin, destination, listedTime, timeContext, mode } = req.body;
 
   if (!origin || !destination || listedTime === undefined) {
     console.error('Missing parameters:', { origin, destination, listedTime });
@@ -17,7 +17,13 @@ const getCommuteAudit = async (req, res) => {
   }
 
   try {
-    const auditReport = await commuteService.generateAudit(origin, destination, Number(listedTime));
+    const auditReport = await commuteService.generateAudit(
+      origin, 
+      destination, 
+      Number(listedTime),
+      timeContext || 'MORNING',
+      mode || 'DRIVE'
+    );
     
     res.status(200).json({
       success: true,

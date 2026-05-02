@@ -34,6 +34,8 @@ app.use(cookieParser());
 // Routes
 app.use('/api/auth', require('./routes/authRoutes'));
 app.use('/api/commute', require('./routes/commuteRoutes'));
+app.use('/api/aqi', require('./routes/aqiRoutes'));
+app.use('/api/neighborhood', require('./routes/neighborhoodRoutes'));
 
 app.get('/', (req, res) => {
   res.send('API is running...');

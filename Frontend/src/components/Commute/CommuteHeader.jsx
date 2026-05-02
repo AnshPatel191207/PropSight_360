@@ -21,34 +21,39 @@ const CommuteHeader = ({ auditData }) => {
             <span className="text-white text-4xl font-bold uppercase">REALITY: <span className="text-primary">{actualTime} min</span></span>
           </h2>
           {auditData && (
-            <p className={`font-data-mono mt-2 flex items-center gap-2 font-bold uppercase text-xs ${isFaster || isPerfect ? 'text-primary' : 'text-error'}`}>
-              <span className="material-symbols-outlined text-sm">{isFaster || isPerfect ? 'check_circle' : 'warning'}</span>
-              {isPerfect 
-                ? 'Accurate advertised commute time'
-                : isFaster 
-                  ? `${diffMultiplier}x faster than advertised in developer brochures`
-                  : `${diffMultiplier}x longer than advertised in developer brochures`
-              }
-            </p>
+            <div className="mt-3 flex flex-col gap-2">
+              <p className={`font-data-mono flex items-center gap-2 font-bold uppercase text-xs ${isFaster || isPerfect ? 'text-primary' : 'text-error'}`}>
+                <span className="material-symbols-outlined text-sm">{isFaster || isPerfect ? 'check_circle' : 'warning'}</span>
+                {isPerfect 
+                  ? 'Accurate advertised commute time'
+                  : isFaster 
+                    ? `${diffMultiplier}x faster than advertised by developers`
+                    : `${diffMultiplier}x longer than advertised by developers`
+                }
+              </p>
+              
+              <div className="flex items-center gap-2 mt-1">
+                <span className="bg-white/10 px-2 py-1 rounded text-[10px] font-mono font-bold uppercase text-slate-300 border border-white/10 flex items-center gap-1">
+                  <span className="material-symbols-outlined text-[12px]">schedule</span>
+                  {auditData.timeContext || 'MORNING'}
+                </span>
+                <span className="bg-white/10 px-2 py-1 rounded text-[10px] font-mono font-bold uppercase text-slate-300 border border-white/10 flex items-center gap-1">
+                  <span className="material-symbols-outlined text-[12px]">
+                    {auditData.mode === 'DRIVE' ? 'directions_car' : auditData.mode === 'METRO' ? 'train' : auditData.mode === 'BIKE' ? 'two_wheeler' : 'directions_car'}
+                  </span>
+                  {auditData.mode || 'DRIVE'}
+                </span>
+              </div>
+            </div>
           )}
         </div>
         <div className="flex gap-2">
           <button 
             onClick={() => window.print()}
-            className="bg-white/5 px-4 py-2 text-xs font-bold border border-white/10 hover:bg-white/10 transition-colors uppercase rounded flex items-center gap-2"
+            className="bg-primary px-6 py-2 text-xs font-bold text-black border border-primary hover:brightness-110 transition-colors uppercase rounded flex items-center gap-2 no-print active:scale-[0.98]"
           >
             <span className="material-symbols-outlined text-sm">picture_as_pdf</span>
             Export Audit PDF
-          </button>
-          <button 
-            onClick={() => {
-              if (!auditData) return alert('Run an audit first before saving.');
-              alert('Audit successfully saved to your Intelligence Comparison report.');
-            }}
-            className="bg-primary px-4 py-2 text-xs font-bold text-black border border-primary hover:brightness-110 transition-colors uppercase rounded flex items-center gap-2"
-          >
-            <span className="material-symbols-outlined text-sm">save</span>
-            Save to Comparison
           </button>
         </div>
       </div>
