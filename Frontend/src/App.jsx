@@ -7,7 +7,6 @@ import ForgotPassword from './pages/ForgotPassword'
 import Onboarding from './pages/Onboarding'
 import Dashboard from './pages/Dashboard'
 import NeighborhoodIntelligence from './pages/NeighborhoodIntelligence'
-import ForensicAudit from './pages/ForensicAudit'
 import AuditReport from './pages/AuditReport'
 import CommuteCheck from './pages/CommuteCheck'
 import ResetPassword from './pages/ResetPassword'
@@ -22,7 +21,6 @@ function App() {
       <Route path="/onboarding" element={<Onboarding />} />
       <Route path="/dashboard" element={<Dashboard />} />
       <Route path="/neighborhood" element={<NeighborhoodIntelligence />} />
-      <Route path="/forensics" element={<ForensicAudit />} />
       <Route path="/audit-report" element={<AuditReport />} />
       <Route path="/sample-report" element={<AuditReport isStandalone={true} />} />
       <Route path="/commute-check" element={<CommuteCheck />} />

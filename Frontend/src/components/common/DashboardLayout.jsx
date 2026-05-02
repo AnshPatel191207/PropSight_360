@@ -10,7 +10,6 @@ const DashboardLayout = ({ children }) => {
   const navItems = [
     { name: 'Intelligence', icon: 'analytics', path: '/dashboard', parent: 'Intelligence', label: 'Main Dashboard' },
     { name: 'Market Map', icon: 'explore_nearby', path: '/neighborhood', parent: 'Intelligence', label: 'Market Map' },
-    { name: 'Forensics', icon: 'security', path: '/forensics', parent: 'Forensics', label: 'Summary' },
     { name: 'Commute Check', icon: 'directions_car', path: '/commute-check', parent: 'Forensics', label: 'Commute Audit' },
   ];
 
