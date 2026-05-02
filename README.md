@@ -219,6 +219,159 @@ PropSight 360 is built specifically for the Indian real estate ecosystem with:
 
 ---
 
+## 📁 Folder Structure
+```
+PropSight_360/
+│
+├── 📂 Backend/                          # Node.js + Express REST API
+│   ├── 📂 config/
+│   │   ├── db.js                        # MongoDB Atlas connection
+│   │   └── passport.js                  # Google OAuth strategy
+│   │
+│   ├── 📂 controllers/
+│   │   ├── aqiController.js             # Air Quality Index endpoints
+│   │   ├── authController.js            # Login / signup / OAuth logic
+│   │   ├── commuteController.js         # Forensic commute audit logic
+│   │   └── neighborhoodController.js    # Neighbourhood intelligence logic
+│   │
+│   ├── 📂 middleware/
+│   │   ├── authMiddleware.js            # JWT token verification
+│   │   └── errorMiddleware.js           # Global error handler
+│   │
+│   ├── 📂 models/
+│   │   └── User.js                      # Mongoose user schema
+│   │
+│   ├── 📂 routes/
+│   │   ├── aqiRoutes.js                 # GET /api/aqi/*
+│   │   ├── authRoutes.js                # POST /api/auth/*
+│   │   ├── commuteRoutes.js             # POST /api/commute/*
+│   │   └── neighborhoodRoutes.js        # GET /api/neighborhood/*
+│   │
+│   ├── 📂 services/
+│   │   ├── aqiService.js                # AQI data aggregation & caching
+│   │   ├── commuteService.js            # Google Maps + traffic analysis
+│   │   └── neighborhoodService.js       # Multi-source data aggregation
+│   │
+│   ├── 📂 utils/
+│   │   └── generateToken.js             # JWT signing helper
+│   │
+│   ├── .env.example                     # Environment variable template
+│   ├── .gitignore
+│   ├── package.json
+│   └── server.js                        # Express app entry point
+│
+└── 📂 Frontend/                         # React + Vite SPA
+│
+├── 📂 public/
+│   ├── favicon.svg
+│   ├── icons.svg
+│   ├── _redirects                   # Netlify SPA routing fix
+│   └── 📂 screenshots/              # README product preview images
+│       ├── Landing_Page.png
+│       ├── Sign_In_Page.png
+│       ├── Sign_Up_Page.png
+│       ├── Forgot_Password_Page.png
+│       ├── Dashboard_Page.png
+│       ├── Neighborhood_Quality_Checking_Page.png
+│       └── Commute_Lies_Detection_Page.png
+│
+├── 📂 src/
+│   │
+│   ├── 📂 api/                      # Axios API call wrappers
+│   │   ├── aqi.js
+│   │   ├── auth.js
+│   │   ├── commute.js
+│   │   └── neighborhood.js
+│   │
+│   ├── 📂 assets/                   # Static images & SVGs
+│   │   ├── hero.png
+│   │   ├── react.svg
+│   │   └── vite.svg
+│   │
+│   ├── 📂 components/               # Reusable UI components by feature
+│   │   │
+│   │   ├── 📂 AuditReport/          # PDF-style forensic report
+│   │   │   ├── AuditTrailTable.jsx
+│   │   │   ├── BrokerIntelligence.jsx
+│   │   │   ├── MarketComparison.jsx
+│   │   │   ├── PropertySummary.jsx
+│   │   │   ├── ReportFooter.jsx
+│   │   │   ├── ReportHeader.jsx
+│   │   │   └── VerdictGauge.jsx
+│   │   │
+│   │   ├── 📂 Auth/                 # Authentication UI
+│   │   │   ├── AuthFooter.jsx
+│   │   │   ├── AuthLeftPanel.jsx
+│   │   │   ├── ForgotPasswordForm.jsx
+│   │   │   ├── LoginForm.jsx
+│   │   │   ├── ResetSuccessMessage.jsx
+│   │   │   ├── SignupForm.jsx
+│   │   │   └── TrustPill.jsx
+│   │   │
+│   │   ├── 📂 Commute/              # Forensic commute audit UI
+│   │   │   ├── AuditCardGrid.jsx
+│   │   │   ├── CommuteControls.jsx
+│   │   │   ├── CommuteHeader.jsx
+│   │   │   ├── CommuteMap.jsx
+│   │   │   └── LegBreakdown.jsx
+│   │   │
+│   │   ├── 📂 Dashboard/            # Intelligence hub widgets
+│   │   │   ├── FeatureGrid.jsx
+│   │   │   ├── LiveFeedTicker.jsx
+│   │   │   ├── MarketPulse.jsx
+│   │   │   └── PropertyCard.jsx
+│   │   │
+│   │   ├── 📂 Landing/              # Public marketing page sections
+│   │   │   ├── FeatureDeepDives.jsx
+│   │   │   ├── FinalCTA.jsx
+│   │   │   ├── HeroSection.jsx
+│   │   │   ├── HowItWorks.jsx
+│   │   │   ├── ProblemSection.jsx
+│   │   │   ├── StatsTicker.jsx
+│   │   │   └── Testimonials.jsx
+│   │   │
+│   │   ├── 📂 Neighborhood/         # Neighbourhood quality UI
+│   │   │   ├── DataTile.jsx
+│   │   │   ├── InteractiveMap.jsx
+│   │   │   ├── NeighborhoodHeader.jsx
+│   │   │   └── ResidentSentiment.jsx
+│   │   │
+│   │   ├── 📂 Onboarding/           # New user onboarding steps
+│   │   │   ├── LocalityStep.jsx
+│   │   │   ├── ProfileStep.jsx
+│   │   │   └── WelcomeStep.jsx
+│   │   │
+│   │   └── 📂 common/               # Shared layout components
+│   │       ├── DashboardLayout.jsx
+│   │       ├── Footer.jsx
+│   │       └── Navbar.jsx
+│   │
+│   ├── 📂 pages/                    # Route-level page components
+│   │   ├── AuditReport.jsx
+│   │   ├── CommuteCheck.jsx
+│   │   ├── Dashboard.jsx
+│   │   ├── ForgotPassword.jsx
+│   │   ├── LandingPage.jsx
+│   │   ├── Login.jsx
+│   │   ├── NeighborhoodIntelligence.jsx
+│   │   ├── Onboarding.jsx
+│   │   ├── ResetPassword.jsx
+│   │   └── Signup.jsx
+│   │
+│   ├── App.jsx                      # Root component + React Router config
+│   ├── index.css                    # Global styles & CSS variables
+│   └── main.jsx                     # Vite entry point
+│
+├── .env.production                  # Production environment variables
+├── .gitignore
+├── eslint.config.js
+├── index.html                       # HTML shell (Vite)
+├── package.json
+├── README.md                        # Frontend-specific notes
+└── vite.config.js                   # Vite + proxy config
+```
+---
+
 ## 🚀 Getting Started
 
 ### Prerequisites
