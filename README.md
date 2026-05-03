@@ -345,7 +345,17 @@ PropSight_360/
 │   │   └── 📂 common/               # Shared layout components
 │   │       ├── DashboardLayout.jsx
 │   │       ├── Footer.jsx
-│   │       └── Navbar.jsx
+│   │       ├── Navbar.jsx
+│   │       ├── ProtectedRoute.jsx   # Auth guard for private routes
+│   │       └── SEO.jsx              # Dynamic meta tags per page
+│   │
+│   ├── 📂 features/                 # Redux slice definitions
+│   │   ├── authSlice.js             # Auth state (user, token, status)
+│   │   └── uiSlice.js               # UI state (modals, loaders, theme)
+│   │
+│   ├── 📂 hooks/                    # Custom React hooks
+│   │   ├── useAuth.js               # Auth state + helpers
+│   │   └── useTheme.js              # Theme toggle hook
 │   │
 │   ├── 📂 pages/                    # Route-level page components
 │   │   ├── AuditReport.jsx
@@ -358,6 +368,12 @@ PropSight_360/
 │   │   ├── Onboarding.jsx
 │   │   ├── ResetPassword.jsx
 │   │   └── Signup.jsx
+│   │
+│   ├── 📂 store/                    # Redux store setup
+│   │   └── index.js                 # configureStore with all slices
+│   │
+│   ├── 📂 utils/                    # Frontend utility helpers
+│   │   └── storage.js               # localStorage read/write helpers
 │   │
 │   ├── App.jsx                      # Root component + React Router config
 │   ├── index.css                    # Global styles & CSS variables
