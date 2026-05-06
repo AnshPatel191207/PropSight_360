@@ -233,8 +233,8 @@ const InteractiveMap = ({ center, locationName, points = [] }) => {
   };
 
   return (
-    <section className="glass-panel overflow-hidden flex flex-col h-[600px] relative rounded-xl border border-white/5 shadow-2xl">
-      <div className="absolute top-4 left-4 z-[1000] w-64 glass-panel p-5 flex flex-col gap-4 rounded-xl bg-[#0A0F14]/90 backdrop-blur-xl border border-white/10 shadow-2xl">
+    <section className="glass-panel overflow-hidden flex flex-col h-[400px] lg:h-[600px] relative rounded-xl border border-white/5 shadow-2xl">
+      <div className="hidden md:flex absolute top-4 left-4 z-[1000] w-64 glass-panel p-5 flex-col gap-4 rounded-xl bg-[#0A0F14]/90 backdrop-blur-xl border border-white/10 shadow-2xl">
         <h4 className="font-label-caps text-[11px] text-primary border-b border-white/10 pb-3 uppercase font-bold tracking-widest">MAP LAYERS</h4>
         <div className="space-y-4">
           <MapLayerToggle label="Price Heatmap" active={layers.price} onClick={() => setLayers(l => ({ ...l, price: !l.price }))} />

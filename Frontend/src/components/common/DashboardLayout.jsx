@@ -1,10 +1,13 @@
 import React, { useEffect, useState } from 'react'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
+import { useDispatch } from 'react-redux'
 import { getProfile, logout } from '../../api/auth'
+import { setToken } from '../../features/authSlice'
 
 const DashboardLayout = ({ children }) => {
   const location = useLocation();
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const [user, setUser] = useState({ name: 'Loading...', profilePhoto: '' });
 
   const navItems = [
@@ -12,6 +15,9 @@ const DashboardLayout = ({ children }) => {
     { name: 'Market Map', icon: 'explore_nearby', path: '/neighborhood', parent: 'Intelligence', label: 'Market Map' },
     { name: 'Commute Check', icon: 'directions_car', path: '/commute-check', parent: 'Forensics', label: 'Commute Audit' },
   ];
+
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+
 
   // Dynamically determine breadcrumb based on current path
   const getBreadcrumb = () => {
@@ -37,7 +43,7 @@ const DashboardLayout = ({ children }) => {
     const queryParams = new URLSearchParams(location.search);
     const token = queryParams.get('token');
     if (token) {
-      localStorage.setItem('token', token);
+      dispatch(setToken(token));
       // Clean up URL
       navigate(location.pathname, { replace: true });
     }
@@ -60,8 +66,17 @@ const DashboardLayout = ({ children }) => {
 
   return (
     <div className="flex h-screen bg-surface-dim text-on-surface font-body-md selection:bg-primary selection:text-on-primary overflow-hidden">
+      {/* Mobile Sidebar Overlay */}
+      {isSidebarOpen && (
+        <div 
+          className="fixed inset-0 bg-black/60 backdrop-blur-sm z-[60] lg:hidden"
+          onClick={() => setIsSidebarOpen(false)}
+        ></div>
+      )}
+
       {/* SideNavBar */}
-      <aside className="w-[220px] h-screen border-r border-white/5 bg-[#0A0F14] flex flex-col gap-2 p-4 z-50 shrink-0 no-print">
+      <aside className={`fixed lg:static inset-y-0 left-0 w-[240px] lg:w-[220px] h-screen border-r border-white/5 bg-[#0A0F14] flex flex-col gap-2 p-4 z-[70] shrink-0 no-print transition-transform duration-300 transform ${isSidebarOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'}`}>
+
         <div className="mb-8 px-3">
           <Link to="/">
             <h1 className="text-lg font-black tracking-tighter text-[#00D4AA]">PropSight 360</h1>
@@ -111,24 +126,32 @@ const DashboardLayout = ({ children }) => {
         </div>
       </aside>
 
+
       {/* Main Content Wrapper */}
       <div className="flex-1 flex flex-col min-w-0">
         {/* TopAppBar */}
-        <header className="sticky top-0 w-full z-40 bg-[#0A0F14]/80 border-b border-white/10 backdrop-blur-md flex items-center justify-between px-8 py-3 h-[64px] no-print">
-          <div className="flex items-center gap-6 flex-1">
-            <nav className="flex items-center gap-2 font-mono text-[10px] tracking-widest text-slate-400 uppercase font-bold">
-              <span>{breadcrumb.parent}</span>
-              <span className="material-symbols-outlined text-[14px]">chevron_right</span>
-              <span className="text-primary">{breadcrumb.label}</span>
+        <header className="sticky top-0 w-full z-40 bg-[#0A0F14]/80 border-b border-white/10 backdrop-blur-md flex items-center justify-between px-4 lg:px-8 py-3 h-[64px] no-print">
+          <div className="flex items-center gap-4 lg:gap-6 flex-1">
+            <button 
+              onClick={() => setIsSidebarOpen(true)}
+              className="lg:hidden p-2 text-slate-400 hover:text-primary transition-colors"
+            >
+              <span className="material-symbols-outlined">menu</span>
+            </button>
+            <nav className="flex items-center gap-2 font-mono text-[9px] lg:text-[10px] tracking-widest text-slate-400 uppercase font-bold overflow-hidden">
+              <span className="hidden sm:inline">{breadcrumb.parent}</span>
+              <span className="material-symbols-outlined text-[14px] hidden sm:inline">chevron_right</span>
+              <span className="text-primary truncate">{breadcrumb.label}</span>
             </nav>
           </div>
           <div className="flex items-center gap-5">
             <div className="flex items-center gap-2">
               <span className="material-symbols-outlined text-primary text-[20px]">location_on</span>
-              <span className="font-mono text-xs tracking-widest uppercase">Ahmedabad, GJ</span>
+              <span className="font-mono text-[10px] lg:text-xs tracking-widest uppercase">Ahmedabad, GJ</span>
             </div>
           </div>
         </header>
+
 
         {/* Scrollable Stage */}
         <main className="flex-1 overflow-y-auto no-scrollbar bg-[#05080A]">
