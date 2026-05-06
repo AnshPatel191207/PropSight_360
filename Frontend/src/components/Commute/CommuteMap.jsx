@@ -116,9 +116,9 @@ const CommuteMap = ({ polyline }) => {
   }, [polyline]);
 
   return (
-    <div className="flex-1 glass-panel relative h-[600px] overflow-hidden rounded-xl bg-[#0A0F14] border border-white/10 shadow-2xl no-print">
+    <div className="w-full glass-panel relative h-[400px] lg:h-[600px] overflow-hidden rounded-xl bg-[#0A0F14] border border-white/10 shadow-2xl no-print">
       {/* Map Layers Toggle */}
-      <div className="absolute top-4 right-4 z-[1000] flex flex-col gap-2">
+      <div className="absolute top-4 left-4 lg:right-4 lg:left-auto z-[1000] flex flex-col gap-2">
         <LayerToggle icon="straighten" label="Advertised Route" />
         <LayerToggle icon="route" label="Actual Road Route" active />
         <LayerToggle icon="dangerous" label="Bottlenecks" error />
@@ -127,7 +127,7 @@ const CommuteMap = ({ polyline }) => {
       <div ref={mapContainer} className="w-full h-full" />
 
       {/* Map Controls */}
-      <div className="absolute top-4 right-4 flex flex-col gap-3 z-[1000] mr-[180px]">
+      <div className="absolute top-4 right-4 flex flex-col gap-3 z-[1000] lg:mr-[180px]">
         <MapButton icon="add" onClick={() => map.current?.zoomIn()} />
         <MapButton icon="remove" onClick={() => map.current?.zoomOut()} />
         <MapButton 

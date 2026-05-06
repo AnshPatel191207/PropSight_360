@@ -8,7 +8,7 @@ const FeatureGrid = () => {
     <>
       <div 
         onClick={() => navigate('/neighborhood')}
-        className="col-span-5 glass-panel rounded-xl h-[280px] p-6 flex flex-col justify-between inner-highlight group hover:border-primary/30 transition-all cursor-pointer relative overflow-hidden animate-fade-in-up"
+        className="col-span-10 md:col-span-5 glass-panel rounded-xl min-h-[280px] p-6 flex flex-col justify-between inner-highlight group hover:border-primary/30 transition-all cursor-pointer relative overflow-hidden animate-fade-in-up"
       >
         {/* Background glow effect */}
         <div className="absolute -top-20 -right-20 w-40 h-40 bg-primary/5 rounded-full blur-3xl group-hover:bg-primary/10 transition-colors"></div>
@@ -64,7 +64,7 @@ const FeatureGrid = () => {
 
       <div 
         onClick={() => navigate('/commute-check')}
-        className="col-span-5 glass-panel rounded-xl h-[280px] p-6 flex flex-col justify-between inner-highlight hover:border-primary/30 transition-all cursor-pointer group relative overflow-hidden animate-fade-in-up-delay"
+        className="col-span-10 md:col-span-5 glass-panel rounded-xl min-h-[280px] p-6 flex flex-col justify-between inner-highlight hover:border-primary/30 transition-all cursor-pointer group relative overflow-hidden animate-fade-in-up-delay"
       >
         <div className="absolute -top-20 -right-20 w-40 h-40 bg-secondary/5 rounded-full blur-3xl group-hover:bg-secondary/10 transition-colors"></div>
 

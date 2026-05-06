@@ -49,7 +49,7 @@ const NeighborhoodIntelligence = () => {
 
   return (
     <DashboardLayout>
-      <div className="p-8 space-y-8">
+      <div className="p-4 md:p-8 space-y-8">
         <NeighborhoodHeader 
           location={location} 
           setLocation={setLocation} 
@@ -88,7 +88,7 @@ const NeighborhoodIntelligence = () => {
           </div>
 
           {/* Data Tiles Grid */}
-          <div className="lg:col-span-8 grid grid-cols-2 md:grid-cols-4 gap-4">
+          <div className="lg:col-span-8 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
             <DataTile 
               title="SCHOOL QUALITY" 
               value={loading ? '...' : intelData?.schoolQuality.grade} 
