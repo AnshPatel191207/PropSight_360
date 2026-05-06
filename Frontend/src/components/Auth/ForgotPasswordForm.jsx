@@ -53,6 +53,7 @@ const ForgotPasswordForm = ({ onEmailSent }) => {
               placeholder="investor@firm.in" 
               required 
               type="email" 
+              autoComplete="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
             />

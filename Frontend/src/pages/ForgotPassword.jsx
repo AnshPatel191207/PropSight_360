@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 import ForgotPasswordForm from '../components/Auth/ForgotPasswordForm'
 import ResetSuccessMessage from '../components/Auth/ResetSuccessMessage'
+import SEO from '../components/common/SEO'
 
 const ForgotPassword = () => {
   const [isSuccess, setIsSuccess] = useState(false);
@@ -14,6 +15,11 @@ const ForgotPassword = () => {
   return (
     <div className="bg-[#0d1512] text-on-surface font-body-md min-h-screen selection:bg-primary-container selection:text-on-primary-container overflow-hidden flex flex-col">
       {/* Centered Logo Header */}
+      <SEO 
+        title="Forgot Password" 
+        description="Reset your PropSight 360 account password securely. Enter your email to receive a password reset link."
+        canonical="https://propsight360.netlify.app/forgot-password"
+      />
       <header className="w-full flex flex-col items-center pt-12 pb-8 z-50">
         <Link to="/" className="flex flex-col items-center gap-2">
           <div className="flex items-center gap-3">

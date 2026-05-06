@@ -1,0 +1,12 @@
+# https://www.robotstxt.org/robotstxt.html
+User-agent: *
+Allow: /
+
+# Block API endpoints from crawling
+Disallow: /api/
+
+# Block auth tokens in URLs from being cached
+Disallow: /*?token=
+
+# Sitemap
+Sitemap: https://propsight360.netlify.app/sitemap.xml

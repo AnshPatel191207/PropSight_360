@@ -147,8 +147,10 @@ const forgotPassword = async (req, res) => {
   const message = `You are receiving this email because you (or someone else) has requested the reset of a password. Please make a PUT request to: \n\n ${resetUrl}`;
 
   try {
-    // Here you would normally send the email
-    console.log(`Sending email to ${user.email} with reset link: ${resetUrl}`);
+    // Here you would normally send the email via nodemailer
+    if (process.env.NODE_ENV !== 'production') {
+      console.log(`[DEV] Reset link for ${user.email}: ${resetUrl}`);
+    }
     
     res.status(200).json({ success: true, data: 'Email sent' });
   } catch (err) {
@@ -218,34 +220,8 @@ const googleCallback = (req, res, next) => {
   })(req, res, next);
 };
 
-// @desc    Mobile Login (OTP)
-// @route   POST /api/auth/mobile-login
-// @access  Public
-const mobileLogin = async (req, res) => {
-  const { phone, otp } = req.body;
-
-  // Mock OTP verification
-  if (otp === '123456') {
-    let user = await User.findOne({ phone });
-
-    if (!user) {
-      // Create a dummy user if phone not found, or handle as registration
-      res.status(404);
-      throw new Error('Phone number not registered');
-    }
-
-    generateToken(res, user._id);
-    res.status(200).json({
-      _id: user._id,
-      fullName: user.fullName,
-      phone: user.phone,
-      profileType: user.profileType,
-    });
-  } else {
-    res.status(400);
-    throw new Error('Invalid OTP');
-  }
-};
+// Mobile Login endpoint removed — hardcoded OTP was a security vulnerability.
+// To re-enable, integrate a real OTP service (Twilio, MSG91, etc.)
 
 module.exports = {
   registerUser,
@@ -256,5 +232,4 @@ module.exports = {
   resetPassword,
   googleAuth,
   googleCallback,
-  mobileLogin,
 };

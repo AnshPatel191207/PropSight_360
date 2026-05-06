@@ -5,6 +5,7 @@ import DataTile from '../components/Neighborhood/DataTile'
 import ResidentSentiment from '../components/Neighborhood/ResidentSentiment'
 import InteractiveMap from '../components/Neighborhood/InteractiveMap'
 import { fetchNeighborhoodIntelligence } from '../api/neighborhood'
+import SEO from '../components/common/SEO'
 
 const NeighborhoodIntelligence = () => {
   const [intelData, setIntelData] = useState(null);
@@ -49,6 +50,12 @@ const NeighborhoodIntelligence = () => {
 
   return (
     <DashboardLayout>
+      <SEO 
+        title="Neighborhood Intelligence" 
+        description="Hyperlocal neighbourhood analysis with school quality, AQI levels, crime rates, water supply, power stability, and future infrastructure data for Ahmedabad properties."
+        keywords="neighborhood analysis, AQI ahmedabad, school quality india, crime rate property, water supply check, property neighborhood report, hyperlocal intelligence"
+        canonical="https://propsight360.netlify.app/neighborhood"
+      />
       <div className="p-4 md:p-8 space-y-8">
         <NeighborhoodHeader 
           location={location} 

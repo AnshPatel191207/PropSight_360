@@ -8,7 +8,7 @@ import { registerUser } from '../../features/authSlice'
 import SEO from '../common/SEO'
 
 const SocialButton = ({ icon, text, isEmoji, onClick }) => (
-  <button onClick={onClick} className="bg-white/5 border border-white/10 flex items-center justify-center gap-3 py-3 rounded-lg hover:bg-white/10 transition-all w-full">
+  <button onClick={onClick} aria-label={text === 'Google' ? 'Sign up with Google' : text} className="bg-white/5 border border-white/10 flex items-center justify-center gap-3 py-3 rounded-lg hover:bg-white/10 transition-all w-full">
     {isEmoji ? <span className="text-lg">{icon}</span> : <img alt={text} className="w-5 h-5" src={icon} />}
     <span className="text-[11px] font-bold uppercase tracking-wider text-white">{text}</span>
   </button>
@@ -66,7 +66,12 @@ const SignupForm = () => {
 
   return (
     <div className="w-full max-w-[520px] glass-panel p-10 rounded-xl bg-white/5 backdrop-blur-xl border border-white/10">
-      <SEO title="Create Account" description="Join PropSight 360 to expose misleading real estate claims." />
+      <SEO 
+        title="Create Account" 
+        description="Join 12,000+ smart homebuyers on PropSight 360. Get free access to forensic real estate intelligence, commute verification, and neighborhood risk analysis."
+        keywords="propsight signup, create account, real estate intelligence, property audit registration, free property analysis"
+        canonical="https://propsight360.netlify.app/signup"
+      />
       
       <div className="mb-8 text-center">
         <h2 className="font-headline-lg text-3xl font-bold text-white mb-2 uppercase tracking-tight">Create your account</h2>
@@ -99,9 +104,12 @@ const SignupForm = () => {
 
         <div className="relative bg-white/5 border border-white/10 rounded-lg group focus-within:border-[#46f1c5] transition-all">
           <span className="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-lg">person</span>
+          <label htmlFor="signup-fullname" className="sr-only">Full Name</label>
           <input 
+            id="signup-fullname"
             className="w-full bg-transparent border-none rounded-lg px-10 py-3 text-sm text-white focus:ring-0 outline-none placeholder:text-slate-500 font-bold" 
             placeholder="Full Name" 
+            autoComplete="name"
             {...formik.getFieldProps('fullName')}
           />
         </div>
@@ -109,10 +117,13 @@ const SignupForm = () => {
 
         <div className="relative bg-white/5 border border-white/10 rounded-lg group focus-within:border-[#46f1c5] transition-all">
           <span className="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-lg">mail</span>
+          <label htmlFor="signup-email" className="sr-only">Email address</label>
           <input 
+            id="signup-email"
             className="w-full bg-transparent border-none rounded-lg px-10 py-3 text-sm text-white focus:ring-0 outline-none placeholder:text-slate-500 font-bold" 
             placeholder="Email address" 
             type="email" 
+            autoComplete="email"
             {...formik.getFieldProps('email')}
           />
         </div>
@@ -121,10 +132,13 @@ const SignupForm = () => {
         <div className="space-y-3">
           <div className="relative bg-white/5 border border-white/10 rounded-lg group focus-within:border-[#46f1c5] transition-all">
             <span className="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-lg">lock</span>
+            <label htmlFor="signup-password" className="sr-only">Create password</label>
             <input 
+              id="signup-password"
               className="w-full bg-transparent border-none rounded-lg px-10 py-3 text-sm text-white focus:ring-0 outline-none placeholder:text-slate-500 font-bold" 
               placeholder="Create password" 
               type="password" 
+              autoComplete="new-password"
               {...formik.getFieldProps('password')}
             />
           </div>

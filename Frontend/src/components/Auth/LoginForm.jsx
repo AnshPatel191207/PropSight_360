@@ -39,7 +39,12 @@ const LoginForm = () => {
 
   return (
     <div className="w-full max-w-md glass-panel p-8 md:p-10 rounded-xl">
-      <SEO title="Login" description="Sign in to access forensic real estate intelligence." />
+      <SEO 
+        title="Login" 
+        description="Sign in to PropSight 360 to access forensic-grade real estate intelligence, commute audits, and neighborhood analysis." 
+        keywords="propsight login, real estate intelligence login, property audit signin"
+        canonical="https://propsight360.netlify.app/login"
+      />
       
       <header className="mb-8">
         <h3 className="font-headline-lg text-headline-lg text-on-surface mb-2">Welcome back</h3>
@@ -49,6 +54,7 @@ const LoginForm = () => {
       <div className="grid grid-cols-1 gap-4 mb-8">
         <button 
           onClick={handleGoogleLogin}
+          aria-label="Sign in with Google"
           className="flex items-center justify-center gap-3 bg-surface-container-highest hover:bg-surface-variant transition-colors border border-white/5 py-3 rounded-lg text-on-surface"
         >
           <span className="font-label-caps">Google</span>
@@ -62,13 +68,15 @@ const LoginForm = () => {
 
       <form className="space-y-5" onSubmit={formik.handleSubmit}>
         <div className="space-y-1.5">
-          <label className="font-label-caps text-on-surface-variant ml-1">Email address</label>
+          <label htmlFor="login-email" className="font-label-caps text-on-surface-variant ml-1">Email address</label>
           <div className="relative">
             <span className="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant text-lg">mail</span>
             <input 
+              id="login-email"
               className={`w-full bg-white/5 border ${formik.touched.email && formik.errors.email ? 'border-red-500/50' : 'border-white/10'} rounded-lg pl-10 py-3 text-on-surface focus:outline-none focus:border-primary/50`}
               placeholder="you@example.com" 
               type="email" 
+              autoComplete="email"
               {...formik.getFieldProps('email')}
             />
           </div>
@@ -79,15 +87,17 @@ const LoginForm = () => {
 
         <div className="space-y-1.5">
           <div className="flex justify-between items-center px-1">
-            <label className="font-label-caps text-on-surface-variant">Password</label>
+            <label htmlFor="login-password" className="font-label-caps text-on-surface-variant">Password</label>
             <Link className="font-label-caps text-primary hover:underline transition-all" to="/forgot-password">Forgot password?</Link>
           </div>
           <div className="relative">
             <span className="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant text-lg">lock</span>
             <input 
+              id="login-password"
               className={`w-full bg-white/5 border ${formik.touched.password && formik.errors.password ? 'border-red-500/50' : 'border-white/10'} rounded-lg pl-10 pr-10 py-3 text-on-surface focus:outline-none focus:border-primary/50`}
               placeholder="••••••••" 
               type="password" 
+              autoComplete="current-password"
               {...formik.getFieldProps('password')}
             />
           </div>

@@ -37,8 +37,8 @@ const Footer = () => {
       <div className="max-w-7xl mx-auto px-6 mt-16 pt-8 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-4">
         <p className="text-xs uppercase tracking-widest font-mono text-slate-500">© 2024 PropSight 360. Forensic Real Estate Intelligence.</p>
         <div className="flex gap-6">
-          <span className="material-symbols-outlined text-slate-500 hover:text-[#00D4AA] cursor-pointer">public</span>
-          <span className="material-symbols-outlined text-slate-500 hover:text-[#00D4AA] cursor-pointer">share</span>
+          <span className="material-symbols-outlined text-slate-500 hover:text-[#00D4AA] cursor-pointer" role="link" aria-label="Visit our website" tabIndex="0">public</span>
+          <span className="material-symbols-outlined text-slate-500 hover:text-[#00D4AA] cursor-pointer" role="link" aria-label="Share PropSight 360" tabIndex="0">share</span>
         </div>
       </div>
     </footer>

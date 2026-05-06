@@ -3,6 +3,7 @@ import { Link, useNavigate } from 'react-router-dom'
 import WelcomeStep from '../components/Onboarding/WelcomeStep'
 import ProfileStep from '../components/Onboarding/ProfileStep'
 import LocalityStep from '../components/Onboarding/LocalityStep'
+import SEO from '../components/common/SEO'
 
 const Onboarding = () => {
   const [step, setStep] = useState(2); // Starting at 2 as per reference demo
@@ -18,6 +19,12 @@ const Onboarding = () => {
 
   return (
     <div className="bg-[#0F1923] text-on-surface min-h-screen flex flex-col font-body-md antialiased overflow-x-hidden selection:bg-primary-container selection:text-on-primary-container">
+      <SEO 
+        title="Onboarding" 
+        description="Set up your PropSight 360 profile, choose your investment type, and select target localities for forensic real estate analysis in Ahmedabad."
+        keywords="property profile setup, real estate onboarding, locality selection ahmedabad, property investment type"
+        canonical="https://propsight360.netlify.app/onboarding"
+      />
       {/* Top Bar for Identity Only */}
       <nav className="flex justify-center items-center py-10 px-6 shrink-0">
         <Link to="/" className="text-xl font-bold tracking-tighter text-[#00D4AA] font-display-xl uppercase">PropSight 360</Link>

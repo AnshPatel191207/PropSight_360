@@ -8,7 +8,7 @@ const Navbar = () => {
 
   return (
     <header className="bg-[#0F1923]/80 backdrop-blur-md fixed top-0 w-full z-50 border-b border-white/5 font-sans antialiased text-sm tracking-tight">
-      <nav className="flex justify-between items-center px-6 py-4 max-w-7xl mx-auto">
+      <nav className="flex justify-between items-center px-6 py-4 max-w-7xl mx-auto" aria-label="Main navigation">
         <Link to="/" className="text-xl font-bold tracking-tighter text-[#00D4AA]">PropSight 360</Link>
         
         {/* Desktop Nav */}
@@ -37,6 +37,8 @@ const Navbar = () => {
         <button 
           className="md:hidden text-slate-400 p-2"
           onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+          aria-label={isMobileMenuOpen ? 'Close navigation menu' : 'Open navigation menu'}
+          aria-expanded={isMobileMenuOpen}
         >
           <span className="material-symbols-outlined">{isMobileMenuOpen ? 'close' : 'menu'}</span>
         </button>

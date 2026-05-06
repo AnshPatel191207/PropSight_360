@@ -6,6 +6,7 @@ import LegBreakdown from '../components/Commute/LegBreakdown'
 import CommuteMap from '../components/Commute/CommuteMap'
 import AuditCardGrid from '../components/Commute/AuditCardGrid'
 import { generateCommuteAudit } from '../api/commute'
+import SEO from '../components/common/SEO'
 
 const CommuteCheck = () => {
   const [auditData, setAuditData] = useState(null);
@@ -28,6 +29,12 @@ const CommuteCheck = () => {
 
   return (
     <DashboardLayout>
+      <SEO 
+        title="Commute Audit" 
+        description="Forensic commute analysis exposing real vs advertised travel times with traffic delay multipliers, route visualization, and monsoon impact analysis."
+        keywords="commute audit, real commute time, traffic delay analysis, property commute check, route analysis india, peak hour traffic, commute bias"
+        canonical="https://propsight360.netlify.app/commute-check"
+      />
       <div className="max-w-[1440px] mx-auto px-4 md:px-8 pb-12 pt-6">
         {/* Header */}
         <CommuteHeader auditData={auditData} />

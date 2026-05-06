@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
 import { resetPassword } from '../api/auth';
+import SEO from '../components/common/SEO';
 
 const ResetPassword = () => {
   const { token } = useParams();
@@ -31,6 +32,12 @@ const ResetPassword = () => {
 
   return (
     <div className="bg-[#0d1512] text-on-surface font-body-md min-h-screen flex flex-col items-center justify-center px-6">
+      <SEO 
+        title="Reset Password" 
+        description="Set a new secure password for your PropSight 360 account. Secure bank-grade encryption for your real estate intelligence data."
+        keywords="reset password, propsight account recovery, secure password reset"
+        canonical="https://propsight360.netlify.app/reset-password"
+      />
       <div className="w-full max-w-md bg-white/5 backdrop-blur-xl border border-white/10 rounded-xl p-10">
         <div className="text-center mb-8">
           <div className="w-16 h-16 rounded-full bg-[#00d4aa]/10 border border-[#46f1c5]/20 flex items-center justify-center mx-auto mb-4">
@@ -55,13 +62,15 @@ const ResetPassword = () => {
         {!success && (
           <form className="space-y-6" onSubmit={handleSubmit}>
             <div className="space-y-2">
-              <label className="text-[10px] uppercase font-bold text-slate-500 tracking-wider ml-1">New Password</label>
+              <label htmlFor="reset-password" className="text-[10px] uppercase font-bold text-slate-500 tracking-wider ml-1">New Password</label>
               <div className="relative">
                 <span className="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-lg">lock</span>
                 <input 
+                  id="reset-password"
                   className="w-full bg-white/5 border border-white/10 rounded-lg pl-10 py-3 text-sm text-white focus:outline-none focus:border-[#00d4aa]" 
                   type="password" 
                   placeholder="••••••••"
+                  autoComplete="new-password"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   required 
@@ -69,13 +78,15 @@ const ResetPassword = () => {
               </div>
             </div>
             <div className="space-y-2">
-              <label className="text-[10px] uppercase font-bold text-slate-500 tracking-wider ml-1">Confirm New Password</label>
+              <label htmlFor="confirm-password" className="text-[10px] uppercase font-bold text-slate-500 tracking-wider ml-1">Confirm New Password</label>
               <div className="relative">
                 <span className="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-lg">lock</span>
                 <input 
+                  id="confirm-password"
                   className="w-full bg-white/5 border border-white/10 rounded-lg pl-10 py-3 text-sm text-white focus:outline-none focus:border-[#00d4aa]" 
                   type="password" 
                   placeholder="••••••••"
+                  autoComplete="new-password"
                   value={confirmPassword}
                   onChange={(e) => setConfirmPassword(e.target.value)}
                   required 

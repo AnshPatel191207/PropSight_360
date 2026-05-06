@@ -22,7 +22,14 @@ const HeroSection = () => {
         </div>
         {/* Dashboard Mockup */}
         <div className="relative max-w-5xl mx-auto mt-12 rounded-t-2xl border-x border-t border-white/10 bg-[#16222D] p-2 inner-highlight overflow-hidden shadow-2xl">
-          <img alt="App Dashboard Interface" className="rounded-t-xl opacity-90 grayscale-[0.2] hover:grayscale-0 transition-all duration-700" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDD0ain4CluokcY2IFUeoJx2p7mIGSUJm0dyT4nYnjWTptk4ufYEZHjHWVaHn9pL3eUl2vD1-Eh2b8KH1aBgMUwMJ6uspllzNtuizGMa4uHpXm96t3aqwyD80zHBytjNqnqodJa1Ye1uchUk7mCM-GMTZ0M1bu4k9ky4DmKEsQZ5H5NLPphUsj9z6sOY6NTO0igNhdq_Q36YkDz7ODxa60axV2MbnUOzZ5Nj0iYXyRaqgeT2DfHbrUzysj-RIOLwlxFLo1ihiWDI-s" />
+          <img 
+            alt="PropSight 360 Dashboard Interface showing forensic real estate analytics" 
+            loading="lazy" 
+            width="960" 
+            height="540" 
+            className="rounded-t-xl opacity-90 grayscale-[0.2] hover:grayscale-0 transition-all duration-700" 
+            src="https://lh3.googleusercontent.com/aida-public/AB6AXuDD0ain4CluokcY2IFUeoJx2p7mIGSUJm0dyT4nYnjWTptk4ufYEZHjHWVaHn9pL3eUl2vD1-Eh2b8KH1aBgMUwMJ6uspllzNtuizGMa4uHpXm96t3aqwyD80zHBytjNqnqodJa1Ye1uchUk7mCM-GMTZ0M1bu4k9ky4DmKEsQZ5H5NLPphUsj9z6sOY6NTO0igNhdq_Q36YkDz7ODxa60axV2MbnUOzZ5Nj0iYXyRaqgeT2DfHbrUzysj-RIOLwlxFLo1ihiWDI-s" 
+          />
         </div>
       </div>
     </section>

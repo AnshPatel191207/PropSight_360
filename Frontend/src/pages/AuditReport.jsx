@@ -8,10 +8,17 @@ import MarketComparison from '../components/AuditReport/MarketComparison'
 import ReportFooter from '../components/AuditReport/ReportFooter'
 
 import DashboardLayout from '../components/common/DashboardLayout'
+import SEO from '../components/common/SEO'
 
 const AuditReport = ({ isStandalone }) => {
   const content = (
     <div className="bg-[#f8faf8] text-[#191c1b] min-h-screen">
+      <SEO 
+        title="Audit Report" 
+        description="Detailed forensic property audit report with verdict gauge, evidence trail, broker intelligence, and market comparison for data-backed buying decisions."
+        keywords="property audit report, forensic property analysis, broker intelligence, market comparison, property verdict, real estate evidence"
+        canonical="https://propsight360.netlify.app/audit-report"
+      />
       <main className="max-w-5xl mx-auto py-12 px-6 lg:px-12">
         {/* Header */}
         <ReportHeader />

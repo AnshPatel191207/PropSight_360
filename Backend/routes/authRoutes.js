@@ -9,7 +9,6 @@ const {
   resetPassword,
   googleAuth,
   googleCallback,
-  mobileLogin,
 } = require('../controllers/authController');
 const { protect } = require('../middleware/authMiddleware');
 
@@ -23,8 +22,5 @@ router.get('/profile', protect, getUserProfile);
 // Google OAuth
 router.get('/google', googleAuth);
 router.get('/google/callback', googleCallback);
-
-// Mobile Auth (simplified for now, usually involves OTP)
-router.post('/mobile-login', mobileLogin);
 
 module.exports = router;

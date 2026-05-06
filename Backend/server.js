@@ -4,6 +4,8 @@ const cors = require('cors');
 const morgan = require('morgan');
 const cookieParser = require('cookie-parser');
 const passport = require('passport');
+const helmet = require('helmet');
+const rateLimit = require('express-rate-limit');
 const connectDB = require('./config/db');
 const { notFound, errorHandler } = require('./middleware/errorMiddleware');
 
@@ -15,7 +17,17 @@ require('./config/passport')(passport);
 connectDB();
 
 const app = express();
-app.set('trust proxy', 1);
+
+// Trust proxy only in production (Render, Heroku, etc.)
+if (process.env.NODE_ENV === 'production') {
+  app.set('trust proxy', 1);
+}
+
+// Security Headers (helmet)
+app.use(helmet({
+  crossOriginResourcePolicy: { policy: 'cross-origin' },
+  contentSecurityPolicy: false, // Disabled for SPA compatibility
+}));
 
 app.use(passport.initialize());
 
@@ -42,12 +54,33 @@ app.use(cors({
   credentials: true,
 }));
 
-app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
+// Body parser with size limits
+app.use(express.json({ limit: '10kb' }));
+app.use(express.urlencoded({ extended: false, limit: '10kb' }));
 app.use(cookieParser());
 
+// Global rate limiter (100 requests per 15 mins per IP)
+const globalLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000,
+  max: 100,
+  standardHeaders: true,
+  legacyHeaders: false,
+  message: { message: 'Too many requests, please try again later.' },
+});
+
+// Strict rate limiter for auth endpoints (15 requests per 15 mins)
+const authLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000,
+  max: 15,
+  standardHeaders: true,
+  legacyHeaders: false,
+  message: { message: 'Too many authentication attempts, please try again later.' },
+});
+
+app.use('/api', globalLimiter);
+
 // Routes
-app.use('/api/auth', require('./routes/authRoutes'));
+app.use('/api/auth', authLimiter, require('./routes/authRoutes'));
 app.use('/api/commute', require('./routes/commuteRoutes'));
 app.use('/api/aqi', require('./routes/aqiRoutes'));
 app.use('/api/neighborhood', require('./routes/neighborhoodRoutes'));
