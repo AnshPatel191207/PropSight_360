@@ -12,14 +12,22 @@ const ProtectedRoute = ({ children }) => {
   const queryParams = new URLSearchParams(location.search);
   const urlToken = queryParams.get('token');
 
+  // CRITICAL: If there's a token in the URL, save it to localStorage IMMEDIATELY 
+  // before rendering children. This avoids race conditions where child components 
+  // (like NeighborhoodIntelligence) try to fetch data before the useEffect 
+  // has a chance to dispatch and save the token.
+  if (urlToken && localStorage.getItem('token') !== urlToken) {
+    localStorage.setItem('token', urlToken);
+  }
+
   useEffect(() => {
-    if (urlToken && !reduxToken) {
+    if (urlToken && reduxToken !== urlToken) {
       dispatch(setToken(urlToken));
     }
   }, [urlToken, reduxToken, dispatch]);
   
   // A user is authenticated if they have a token in Redux OR if there's one in the URL
-  const isAuthenticated = !!reduxToken || !!urlToken;
+  const isAuthenticated = !!reduxToken || !!urlToken || !!localStorage.getItem('token');
 
   if (!isAuthenticated) {
     return <Navigate to="/login" state={{ from: location }} replace />;
